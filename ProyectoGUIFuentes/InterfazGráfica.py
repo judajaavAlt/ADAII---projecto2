@@ -115,33 +115,107 @@ class Ui_Dialog(object):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(600, 400)
+        Dialog.resize(650, 350)
         Dialog.setWindowIcon(QtGui.QIcon("ProyectoGUIFuentes/logo.png"))
+
+            # Estilos CSS
+        Dialog.setStyleSheet("""
+        /* Fondo y bordes generales de la ventana */
+        Dialog {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        /* Estilo para las etiquetas (QLabel) */
+        QLabel {
+            font-family: 'Arial', sans-serif;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        #labelMessage, #labelMessageMpl {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        #labelFile, #labelFileMpl, #labelData {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        #labelResult {
+            font-size: 12px;
+            color: #333;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        /* Estilo para los botones (QPushButton) */
+        QPushButton {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        QPushButton:hover {
+            background-color: #2980b9;
+        }
+        
+        QPushButton:pressed {
+            background-color: #1abc9c;
+        }
+
+        /* Estilo para el combo box (QComboBox) */
+        QComboBox {
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        QComboBox:hover {
+            border-color: #3498db;
+        }
+
+        /* Espaciado y márgenes */
+        QDialog {
+            padding: 15px;
+        }
+    """)
+
         self.labelMessage = QtWidgets.QLabel(Dialog)
-        self.labelMessage.setGeometry(QtCore.QRect(20, 0, 440, 16))
+        self.labelMessage.setGeometry(QtCore.QRect(20, 0, 600, 16))
         self.labelMessage.setObjectName("labelMessage")
 
         self.labelMessageMpl = QtWidgets.QLabel(Dialog)
-        self.labelMessageMpl.setGeometry(QtCore.QRect(20, 200, 440, 16))
+        self.labelMessageMpl.setGeometry(QtCore.QRect(20, 280, 440, 16))
         self.labelMessageMpl.setObjectName("labelMessageMpl")
 
         self.pushButtonFile = QtWidgets.QPushButton(Dialog)
-        self.pushButtonFile.setGeometry(QtCore.QRect(20, 20, 130, 25))
+        self.pushButtonFile.setGeometry(QtCore.QRect(20, 20, 200, 27))
         self.pushButtonFile.setObjectName("pushButtonFile")
 
         self.pushButtonFileMpl = QtWidgets.QPushButton(Dialog)
-        self.pushButtonFileMpl.setGeometry(QtCore.QRect(20, 220, 130, 25))
+        self.pushButtonFileMpl.setGeometry(QtCore.QRect(20, 300, 200, 35))
         self.pushButtonFileMpl.setObjectName("pushButtonFileMpl")
 
         self.comboBox = QtWidgets.QComboBox(Dialog)
-        self.comboBox.setGeometry(QtCore.QRect(190, 20, 120, 25))
+        self.comboBox.setGeometry(QtCore.QRect(235, 20, 150, 27))
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("coin-bc")
         self.comboBox.addItem("gecode")
         self.comboBox.addItem("chuffed")
 
         self.pushButtonSolver = QtWidgets.QPushButton(Dialog)
-        self.pushButtonSolver.setGeometry(QtCore.QRect(330, 20, 75, 25))
+        self.pushButtonSolver.setGeometry(QtCore.QRect(400, 20, 90, 27))
         self.pushButtonSolver.setObjectName("pushButtonSolver")
 
         self.labelFile = QtWidgets.QLabel(Dialog)
@@ -149,16 +223,17 @@ class Ui_Dialog(object):
         self.labelFile.setObjectName("labelFile")
 
         self.labelFileMpl = QtWidgets.QLabel(Dialog)
-        self.labelFileMpl.setGeometry(QtCore.QRect(20, 250, 700, 16))
+        self.labelFileMpl.setGeometry(QtCore.QRect(20, 330, 700, 16))
         self.labelFileMpl.setObjectName("labelFileMpl")
 
         self.labelData = QtWidgets.QLabel(Dialog)
-        self.labelData.setGeometry(QtCore.QRect(20, 70, 320, 16))
+        self.labelData.setGeometry(QtCore.QRect(20, 70, 400, 16))
         self.labelData.setObjectName("labelData")
 
         self.labelResult = QtWidgets.QLabel(Dialog)
-        self.labelResult.setGeometry(QtCore.QRect(20, 100, 500, 60))
+        self.labelResult.setGeometry(QtCore.QRect(20, 90, 600, 180))
         self.labelResult.setObjectName("labelResult")
+        self.labelResult.setWordWrap(True)
 
         self.retranslateUi(Dialog)
         self.pushButtonFile.clicked.connect(self.buttonFileClicked)
