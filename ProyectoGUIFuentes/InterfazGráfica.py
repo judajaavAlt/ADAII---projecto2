@@ -38,7 +38,7 @@ class Ui_Dialog(object):
             file_name = os.path.basename(filename)
             self.mzn_instance = Instance(self.solver, self.mzn_model)
             self.mzn_instance.add_file(filename, True)
-            self.labelFile.setText(file_name)
+            self.labelFile.setText(f"Archivo elegido: {file_name}")
 
     def buttonFileClickedMpl(self):
         # Opciones para el cuadro de diálogo
@@ -79,8 +79,11 @@ class Ui_Dialog(object):
             with open(output_filename, "w") as f:
                 f.write(dataDZN)
 
+            # Obtener la ruta relativa del archivo dentro del directorio del proyecto
+            relative_output_filename = os.path.relpath(output_filename, start=os.getcwd())
+
             # Actualizar la etiqueta con el nombre del archivo
-            self.labelFile.setText(f"Archivo creado: {output_filename}")
+            self.labelFileMpl.setText(f"Archivo creado en: {relative_output_filename}")
 
     def selectSolver(self):
         self.solver = Solver.lookup(self.comboBox.itemText(self.comboBox.currentIndex()))
@@ -110,25 +113,24 @@ class Ui_Dialog(object):
         # Mostrar en el QLabel
         self.labelResult.setText(f"x = [{x_str}]\nPolarización mínima lograda: {pol_value_rounded}")
 
-    # def handleButtonClick(self):
-    #     # Obtener el texto ingresado y mostrarlo
-    #     text = self.lineEdit.text()
-    #     print(f"Texto ingresado: {text}")
-
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(640, 480)
-        Dialog.setWindowIcon(QtGui.QIcon("logo.png"))
+        Dialog.resize(600, 400)
+        Dialog.setWindowIcon(QtGui.QIcon("ProyectoGUIFuentes/logo.png"))
         self.labelMessage = QtWidgets.QLabel(Dialog)
         self.labelMessage.setGeometry(QtCore.QRect(20, 0, 440, 16))
         self.labelMessage.setObjectName("labelMessage")
+
+        self.labelMessageMpl = QtWidgets.QLabel(Dialog)
+        self.labelMessageMpl.setGeometry(QtCore.QRect(20, 200, 440, 16))
+        self.labelMessageMpl.setObjectName("labelMessageMpl")
 
         self.pushButtonFile = QtWidgets.QPushButton(Dialog)
         self.pushButtonFile.setGeometry(QtCore.QRect(20, 20, 130, 25))
         self.pushButtonFile.setObjectName("pushButtonFile")
 
         self.pushButtonFileMpl = QtWidgets.QPushButton(Dialog)
-        self.pushButtonFileMpl.setGeometry(QtCore.QRect(20, 200, 130, 25))
+        self.pushButtonFileMpl.setGeometry(QtCore.QRect(20, 220, 130, 25))
         self.pushButtonFileMpl.setObjectName("pushButtonFileMpl")
 
         self.comboBox = QtWidgets.QComboBox(Dialog)
@@ -146,6 +148,10 @@ class Ui_Dialog(object):
         self.labelFile.setGeometry(QtCore.QRect(20, 50, 500, 16))
         self.labelFile.setObjectName("labelFile")
 
+        self.labelFileMpl = QtWidgets.QLabel(Dialog)
+        self.labelFileMpl.setGeometry(QtCore.QRect(20, 250, 700, 16))
+        self.labelFileMpl.setObjectName("labelFileMpl")
+
         self.labelData = QtWidgets.QLabel(Dialog)
         self.labelData.setGeometry(QtCore.QRect(20, 70, 320, 16))
         self.labelData.setObjectName("labelData")
@@ -153,16 +159,6 @@ class Ui_Dialog(object):
         self.labelResult = QtWidgets.QLabel(Dialog)
         self.labelResult.setGeometry(QtCore.QRect(20, 100, 500, 60))
         self.labelResult.setObjectName("labelResult")
-
-        # self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        # self.lineEdit.setGeometry(QtCore.QRect(20, 160, 400, 25))  # Define la posición y el tamaño
-        # self.lineEdit.setObjectName("lineEdit")
-        # self.lineEdit.setPlaceholderText("Introduce un valor aquí...")  # Texto de sugerencia
-        # self.pushButtonGetText = QtWidgets.QPushButton(Dialog)
-        # self.pushButtonGetText.setGeometry(QtCore.QRect(440, 160, 75, 25))  # Posición del botón
-        # self.pushButtonGetText.setObjectName("pushButtonGetText")
-        # self.pushButtonGetText.setText("Obtener Texto")
-        # self.pushButtonGetText.clicked.connect(self.handleButtonClick)
 
         self.retranslateUi(Dialog)
         self.pushButtonFile.clicked.connect(self.buttonFileClicked)
@@ -178,7 +174,8 @@ class Ui_Dialog(object):
         self.pushButtonFile.setText(_translate("Dialog", "Seleccionar archivo dzn"))
         self.pushButtonFileMpl.setText(_translate("Dialog", "Seleccionar archivo mpl"))
         self.pushButtonSolver.setText(_translate("Dialog", "Resolver"))
-        self.labelMessage.setText(_translate("Dialog","Seleccione un archivo de datos para empezar. El solver por defecto es Gecode"))
+        self.labelMessage.setText(_translate("Dialog","Seleccione un archivo de datos para empezar. El solver por defecto es COIN-BC"))
+        self.labelMessageMpl.setText(_translate("Dialog","Seleccione un archivo de datos .mpl para convertirlo a .dzn"))
         self.labelData.setText(_translate("Dialog", "Esperando datos..."))
 
 
