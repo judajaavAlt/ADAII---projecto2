@@ -1,8 +1,40 @@
 import { useState } from "react";
 import { PieChart } from '@mui/x-charts';
+import * as MiniZinc from 'minizinc';
 
 function App() 
 {
+    MiniZinc.init({
+        // If omitted, searches for minizinc-worker.js next to the minizinc library script
+        workerURL: 'http://localhost:3000/node_modules/minizinc/dist/minizinc-worker.js',
+        // If these are omitted, searches next to the worker script
+        wasmURL: 'http://localhost:3000/node_modules/minizinc/dist/minizinc.wasm',
+        dataURL: 'http://localhost:3000/node_modules/minizinc/dist/minizinc.data'
+      }).then(() => {
+        console.log('Ready');
+      });
+
+    const [value, setValue] = useState("")
+    fetch('../src/test.mzn')
+        .then(r => r.text())
+        .then(text => {
+        setValue(text);
+    });
+    const model = new MiniZinc.Model();
+    model.addFile('test.mzn', value);
+    model.addDznString('n = 4;');
+    const solve = model.solve({
+        options: {
+          solver: 'gecode',
+          'time-limit': 10000,
+          statistics: true
+        }
+      });
+    solve.then(result => {
+        console.log(result.solution.output.json);
+        console.log(result.statistics);
+    });
+
     const [fileContent, setFileContent] = useState(""); // Store file content if needed
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0]; // Get the selected file

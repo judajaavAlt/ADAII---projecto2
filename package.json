@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "minizinc": "^4.3.5"
+  }
+}
