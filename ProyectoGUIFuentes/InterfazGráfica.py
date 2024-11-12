@@ -43,17 +43,17 @@ class Ui_Dialog(object):
     def buttonFileClickedMpl(self):
         # Opciones para el cuadro de diálogo
         options = QtWidgets.QFileDialog.Options()
-        
+
         # Mostrar el diálogo de selección de archivo
         filename, _ = QtWidgets.QFileDialog.getOpenFileName(
             None, "Selecciona un archivo .mpl", "", "Archivos MPL (*.mpl)", options=options
         )
-        
+
         if filename:
             # Leer el archivo seleccionado
             with open(filename, "r") as f:
                 data = f.read()
-            
+
             # Procesar los datos
             data = data.split("\n")
             data.pop(-1)  # Limpiar la última línea vacía si existe
@@ -66,10 +66,10 @@ class Ui_Dialog(object):
             dataDZN += f"v = [{data.pop(0)}];\n"
             dataDZN += f"ce = [{data.pop(0)}];\n"
             dataDZN += "c = [|"
-            
+
             for j in range(m):
                 dataDZN += f"{data.pop(0)}|"
-            
+
             dataDZN += "];\n"
             dataDZN += f"ct = {data.pop(0)};\n"
             dataDZN += f"maxM = {data.pop(0)};"
@@ -115,10 +115,10 @@ class Ui_Dialog(object):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(650, 350)
+        Dialog.resize(650, 380)
         Dialog.setWindowIcon(QtGui.QIcon("ProyectoGUIFuentes/logo.png"))
 
-            # Estilos CSS
+        # Estilos CSS
         Dialog.setStyleSheet("""
         /* Fondo y bordes generales de la ventana */
         Dialog {
@@ -126,25 +126,25 @@ class Ui_Dialog(object):
             border-radius: 10px;
             padding: 10px;
         }
-        
+
         /* Estilo para las etiquetas (QLabel) */
         QLabel {
             font-family: 'Arial', sans-serif;
             font-size: 12px;
             color: #333;
         }
-        
+
         #labelMessage, #labelMessageMpl {
             font-size: 14px;
             font-weight: bold;
             color: #2c3e50;
         }
-        
+
         #labelFile, #labelFileMpl, #labelData {
             font-size: 12px;
             color: #7f8c8d;
         }
-        
+
         #labelResult {
             font-size: 12px;
             color: #333;
@@ -152,7 +152,7 @@ class Ui_Dialog(object):
             padding: 10px;
             border-radius: 5px;
         }
-        
+
         /* Estilo para los botones (QPushButton) */
         QPushButton {
             background-color: #3498db;
@@ -164,11 +164,11 @@ class Ui_Dialog(object):
             font-weight: bold;
             transition: background-color 0.3s;
         }
-        
+
         QPushButton:hover {
             background-color: #2980b9;
         }
-        
+
         QPushButton:pressed {
             background-color: #1abc9c;
         }
@@ -223,7 +223,7 @@ class Ui_Dialog(object):
         self.labelFile.setObjectName("labelFile")
 
         self.labelFileMpl = QtWidgets.QLabel(Dialog)
-        self.labelFileMpl.setGeometry(QtCore.QRect(20, 330, 700, 16))
+        self.labelFileMpl.setGeometry(QtCore.QRect(20, 340, 700, 16))
         self.labelFileMpl.setObjectName("labelFileMpl")
 
         self.labelData = QtWidgets.QLabel(Dialog)
@@ -231,7 +231,7 @@ class Ui_Dialog(object):
         self.labelData.setObjectName("labelData")
 
         self.labelResult = QtWidgets.QLabel(Dialog)
-        self.labelResult.setGeometry(QtCore.QRect(20, 90, 600, 180))
+        self.labelResult.setGeometry(QtCore.QRect(20, 90, 600, 190))
         self.labelResult.setObjectName("labelResult")
         self.labelResult.setWordWrap(True)
 
