@@ -108,14 +108,26 @@ class Ui_Dialog(object):
         pol_value_rounded = round(pol_value * 1000) / 1000
 
         # Crear un string con todos los valores de 'x'
-        x_str = ', '.join(str(val) for val in x_values)
+        x_str = '\n'.join(str(val) for val in x_values)
+        cambios = ""
+
+        for i in range(len(x_values)):
+            for j in range(len(x_values[i])):
+                valor = x_values[i][j]
+                if valor != 0:
+                    if valor == 1:
+                        cambios += f"{valor} persona cambió de la opinión {i+1} a la opinión {j+1}\n"
+                    else:
+                        cambios += f"{valor} personas cambiaron de la opinión {i+1} a la opinión {j+1}\n"
 
         # Mostrar en el QLabel
-        self.labelResult.setText(f"x = [{x_str}]\nPolarización mínima lograda: {pol_value_rounded}")
+        #self.labelResult.setText(f"x = [{x_str}]\nPolarización mínima lograda: {pol_value_rounded}")
+        self.labelResult.setText(f"Polarización mínima lograda: {pol_value_rounded}\n\nMatriz de cambios realizados:\n{x_str}\n\n{cambios}")
+        self.labelResult.adjustSize()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(650, 380)
+        Dialog.resize(950, 380)
         Dialog.setWindowIcon(QtGui.QIcon("ProyectoGUIFuentes/logo.png"))
 
         # Estilos CSS
@@ -192,11 +204,11 @@ class Ui_Dialog(object):
     """)
 
         self.labelMessage = QtWidgets.QLabel(Dialog)
-        self.labelMessage.setGeometry(QtCore.QRect(20, 0, 600, 16))
+        self.labelMessage.setGeometry(QtCore.QRect(20, 0, 500, 16))
         self.labelMessage.setObjectName("labelMessage")
 
         self.labelMessageMpl = QtWidgets.QLabel(Dialog)
-        self.labelMessageMpl.setGeometry(QtCore.QRect(20, 280, 440, 16))
+        self.labelMessageMpl.setGeometry(QtCore.QRect(520, 0, 440, 16))
         self.labelMessageMpl.setObjectName("labelMessageMpl")
 
         self.pushButtonFile = QtWidgets.QPushButton(Dialog)
@@ -204,7 +216,7 @@ class Ui_Dialog(object):
         self.pushButtonFile.setObjectName("pushButtonFile")
 
         self.pushButtonFileMpl = QtWidgets.QPushButton(Dialog)
-        self.pushButtonFileMpl.setGeometry(QtCore.QRect(20, 300, 200, 35))
+        self.pushButtonFileMpl.setGeometry(QtCore.QRect(620, 20, 200, 35))
         self.pushButtonFileMpl.setObjectName("pushButtonFileMpl")
 
         self.comboBox = QtWidgets.QComboBox(Dialog)
@@ -212,7 +224,6 @@ class Ui_Dialog(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("coin-bc")
         self.comboBox.addItem("gecode")
-        self.comboBox.addItem("chuffed")
 
         self.pushButtonSolver = QtWidgets.QPushButton(Dialog)
         self.pushButtonSolver.setGeometry(QtCore.QRect(400, 20, 90, 27))
@@ -223,7 +234,7 @@ class Ui_Dialog(object):
         self.labelFile.setObjectName("labelFile")
 
         self.labelFileMpl = QtWidgets.QLabel(Dialog)
-        self.labelFileMpl.setGeometry(QtCore.QRect(20, 340, 700, 16))
+        self.labelFileMpl.setGeometry(QtCore.QRect(520, 57, 700, 16))
         self.labelFileMpl.setObjectName("labelFileMpl")
 
         self.labelData = QtWidgets.QLabel(Dialog)
@@ -231,7 +242,7 @@ class Ui_Dialog(object):
         self.labelData.setObjectName("labelData")
 
         self.labelResult = QtWidgets.QLabel(Dialog)
-        self.labelResult.setGeometry(QtCore.QRect(20, 90, 600, 190))
+        self.labelResult.setGeometry(QtCore.QRect(10, 90, 600, 190))
         self.labelResult.setObjectName("labelResult")
         self.labelResult.setWordWrap(True)
 
@@ -249,7 +260,7 @@ class Ui_Dialog(object):
         self.pushButtonFile.setText(_translate("Dialog", "Seleccionar archivo dzn"))
         self.pushButtonFileMpl.setText(_translate("Dialog", "Seleccionar archivo mpl"))
         self.pushButtonSolver.setText(_translate("Dialog", "Resolver"))
-        self.labelMessage.setText(_translate("Dialog","Seleccione un archivo de datos para empezar. El solver por defecto es COIN-BC"))
+        self.labelMessage.setText(_translate("Dialog","Seleccione un archivo de datos y solver para empezar."))
         self.labelMessageMpl.setText(_translate("Dialog","Seleccione un archivo de datos .mpl para convertirlo a .dzn"))
         self.labelData.setText(_translate("Dialog", "Esperando datos..."))
 
