@@ -20,6 +20,3 @@
 
 ## MisInstancias
     En este directorio estan guardadas todas las instancias para retar a los otros proyectos.
-
-## MinPol
-    En este directorio se encuentran todos los datos con los que fue probado el modelo en formato .mpl
